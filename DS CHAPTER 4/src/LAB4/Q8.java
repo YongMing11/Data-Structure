@@ -5,7 +5,11 @@
  */
 package LAB4;
 
+import java.io.File;
 import java.util.Scanner;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  *
@@ -80,8 +84,20 @@ public class Q8 {
                     System.out.println("Input error!");
                 }
             }
-                start++;
+            start++;
 
         } while (x != -1);
+    }
+
+    public void playSound(String mp3) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("D:/MusicPlayer/fml.mp3").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
     }
 }

@@ -18,22 +18,39 @@ public class Q4 {
         System.out.println("Fib(" + 14 + "): " + fib(14));
     }
 
+//    public static int fib(int index) {
+//        Stack<Integer> a = new Stack<>();
+//        a.push(1);
+//        int pp = 1;
+//        a.push(1);
+//        int p = 1;
+//        if (index == 0 || index == 1) {
+//            return a.peek();
+//        } else {
+//            for (int i = 2; i < index; i++) {
+//                a.push(p + pp);
+//                pp = p;
+//                p = a.peek();
+//            }
+//
+//            return a.peek();
+//        }
+//    }
     public static int fib(int index) {
-        Stack<Integer> a = new Stack<>();
-        a.push(1);
-        int pp = 1;
-        a.push(1);
-        int p = 1;
-        if (index == 0 || index == 1) {
-            return a.peek();
-        } else {
-            for (int i = 2; i < index; i++) {
-                a.push(p + pp);
-                pp = p;
-                p = a.peek();
+        Stack<Integer> stack = new Stack<>();
+        stack.push(1);
+        stack.push(1);
+        if(index<=1){
+            return stack.pop();
+        }else{
+            for(int i=2;i<index;i++){
+                int temp = stack.pop();
+                int temp2 = stack.pop();
+                stack.push(temp);
+                temp2 = temp + temp2;
+                stack.push(temp2);
             }
-
-            return a.peek();
+            return stack.peek();
         }
     }
 }

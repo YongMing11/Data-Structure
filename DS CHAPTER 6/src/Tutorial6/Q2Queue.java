@@ -13,14 +13,18 @@ public class Q2Queue<T> implements ArrayQueue<T> {
 
     private T[] data;
     private int size;
+    private int rear;
+    private int front;
 
     public Q2Queue(int arraysize) {
         data = (T[]) new Object[arraysize];
+        rear = 0;
+        front = 0;
     }
 
     @Override
     public boolean isEmpty() {
-        if (data[0] == null) {
+        if (data[front] == null) {
             return true;
         } else {
             return false;
@@ -46,32 +50,39 @@ public class Q2Queue<T> implements ArrayQueue<T> {
         if (isFull()) {
             return;
         } else {
-            for (int i = 0; i < data.length; i++) {
-                if (data[i] == null) {
-                    data[i] = a;
-                    size++;
-                    break;
-                }
-            }
+//            for (int i = 0; i < data.length; i++) {
+//                if (data[i] == null) {
+//                    data[i] = a;
+//                    size++;
+//                    break;
+//                }
+//            }
+            data[rear] = a;
+//to do a cyclic queue, can go to front empty space 
+//if front places have dequeued, and the behind space is full
+            rear = ++rear % data.length;
         }
     }
 
     @Override
     public T dequeue() {
-        if (data[0] == null) {
+        if (data[front] == null) {
             return null;
         } else {
             size--;
-            T temp = data[0];
-            for (int i = 0; i < data.length; i++) {
-                if (data[i + 1] != null) {
-                    data[i] = data[i + 1];
-                    data[i + 1] = null;
-                } else {
-                    break;
-                }
-            }
-            return temp;
+//            T temp = data[0];
+//            for (int i = 0; i < data.length; i++) {
+//                if (data[i + 1] != null) {
+//                    data[i] = data[i + 1];
+//                    data[i + 1] = null;
+//                } else {
+//                    break;
+//                }
+//            }
+                T temp = data[front];
+                data[front] = null;
+                front = ++front % data.length;
+                return temp;        
         }
     }
 
@@ -90,8 +101,9 @@ public class Q2Queue<T> implements ArrayQueue<T> {
         for (int i = 0; i < data.length; i++) {
             if (data[i] != null) {
                 System.out.print(data[i] + " --> ");
-            }else
+            } else {
                 break;
+            }
         }
     }
 
